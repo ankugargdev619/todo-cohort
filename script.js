@@ -15,7 +15,7 @@ input.addEventListener("keyup",(event)=>{
 })
 
 
-
+// This function will add new to do
 function addToDo(){
     const item = document.getElementById("new-todo-input");
     if(item.value != ""){
@@ -47,7 +47,7 @@ function render(){
 
         let editBtn = document.createElement("button");
         editBtn.setAttribute("class",`edit-button`);
-        
+
         if(!todo.isDone){
             editBtn.setAttribute("onClick",`editToDo(${index})`);
             editBtn.innerHTML=`<svg height="15" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/></svg>`;
@@ -74,6 +74,9 @@ function deleteToDo(count){
 
 function editToDo(count){
     let target = document.querySelectorAll('.todo-name')[count];
+    let targetEditBtn = document.querySelectorAll('.edit-button')[count];
+    targetEditBtn.setAttribute("onClick","");
+    targetEditBtn.innerHTML = "";
     let targetVal = target.innerText;
 
     let targetInput = document.createElement("input");
