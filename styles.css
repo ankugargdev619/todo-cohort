@@ -1,0 +1,90 @@
+:root{
+    --main-color:#a18aff;
+    --border-color:#493f77;
+    --secondary-color: #FFFFFF;
+}
+
+*,*::before,*::after{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.main-container {
+    padding: 30px;
+    margin: 30px 20vw;
+    border-radius: 15px;
+    background-color: var(--main-color);
+    box-sizing: border-box;
+    box-shadow: 0 0 0 1px var(--border-color);
+}
+
+.title{
+    line-height: 2em;
+    color: var(--secondary-color);
+}
+
+.add-todo{
+    position: relative;
+    margin : 30px 0px;
+}
+
+#new-todo-input {
+    position: relative;
+    padding: 10px 10px;
+    border-radius: 10px;
+    border:1px solid var(--main-color);
+    min-width: max-content;
+    width: 98%;
+    height: 20px;
+}
+
+#new-todo-input:focus{
+    outline: none;
+}
+
+#addButton{
+    position: absolute;
+    background-image: url("assets/add.svg");
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border: 0;
+    width: 40px;
+    height: 40px;
+    right: 0;
+    top: 0;
+    background-color: transparent;
+}
+
+
+.todo-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    margin: 20px 0;
+    padding: 5px 20px;
+}
+
+.completed {
+    text-decoration: line-through;
+    width: 90%;
+}
+
+.todo-name{
+    width: 90%;
+    border: 0;
+}
+
+.todo-name:focus{
+    outline: none;
+}
+
+
+
+.edit-button , .delete-button{
+    background-color: transparent;
+    border: none;
+}
