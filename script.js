@@ -1,4 +1,7 @@
 let todos = [];
+let dragSource = null;
+
+
 
 class ToDo {
     constructor(name) {
@@ -26,14 +29,92 @@ function addToDo(){
     }
 }
 
+function handleDragStart(e){
+    this.style.opacity = '0.4';
+    dragSource = this;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain',this.getAttribute('id'));
+}
+
+function handleDragEnd(e){
+    this.style.opacity = '1';
+}
+
+function handleDragEnter(e) {
+    this.classList.add('over');
+}
+
+function handleDragLeave(e){
+    this.classList.remove('over');
+}
+
+function handleDragOver(e){
+    e.preventDefault();
+    return false;
+}
+
+function handleDrop(e){
+    e.stopPropagation();
+    let newTodos = [];
+    if(dragSource!== this){
+        let start = parseInt(dragSource.getAttribute('id'));
+        let end = parseInt(this.getAttribute('id'));
+
+        let arrStart = 0;
+        let arrEnd = todos.length;
+        let shiftType = "";
+        if(start<end){
+            arrStart = start;
+            arrEnd = end;
+            shiftType = "left";
+        } else {
+            arrStart = end;
+            arrEnd = start;
+            shiftType = "right";
+        }
+
+        let startSeg = null;
+        let middleSeg = null
+        let endSeg = null;
+        
+        startSeg = todos.slice(0,arrStart);
+        middleSeg = todos.slice(arrStart,arrEnd+1);
+        endSeg = todos.slice(arrEnd+1,todos.length);
+
+        if(shiftType === "left"){
+            let first = middleSeg.shift();
+            middleSeg.push(first);
+        } else {
+            let last = middleSeg.pop();
+            middleSeg.unshift(last);
+        }
+        newTodos.concat(startSeg,middleSeg,endSeg);
+        todos = startSeg.concat(middleSeg,endSeg);
+        console.log(startSeg,middleSeg,endSeg);
+        //todos=newTodos;
+        render();
+    }
+    return false;
+}
+
 function render(){
     let todosEl = document.querySelector(".todos");
     todosEl.innerHTML = "";
     let index = 0;
+    console.log(todos);
     todos.forEach((todo)=>{
         todos.innerHTML = "";
         let todoContainer = document.createElement("div");
         todoContainer.setAttribute("class",`todo-container`);
+        todoContainer.setAttribute("id",`${index}`);
+        todoContainer.setAttribute("draggable","true");
+        todoContainer.addEventListener('dragstart',handleDragStart);
+        todoContainer.addEventListener('dragend',handleDragEnd);
+        todoContainer.addEventListener('dragover',handleDragOver);
+        todoContainer.addEventListener('dragenter',handleDragEnter);
+        todoContainer.addEventListener('dragleave',handleDragLeave);
+        todoContainer.addEventListener('drop',handleDrop);
+
         let checkbox = document.createElement("input");
         checkbox.setAttribute("type","checkbox");
         checkbox.setAttribute("onClick",`markAsDone(${index})`);
