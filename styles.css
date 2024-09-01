@@ -82,6 +82,12 @@
     cursor : move;
 }
 
+.drag-handle{
+    width: 10px;
+    height: 20px;
+    background-color: #493f77;
+}
+
 .todo-container.over {
     border: 3px dotted var(--border-color);
 }
@@ -99,8 +105,6 @@
 .todo-name:focus{
     outline: none;
 }
-
-
 
 .edit-button , .delete-button{
     background-color: transparent;
