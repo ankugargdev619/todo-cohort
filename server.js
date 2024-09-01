@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const cors = require("cors");
+const fs = require('fs').promises;
+const { FILE } = require('dns');
+const FILE_PATH = "todos.json";
 
 app.use(cors());
 
@@ -60,13 +63,34 @@ function reOrder(startIndex,endIndex){
     console.log(startSeg,middleSeg,endSeg);
 }
 
+const readFileMiddleware = async (req,res,next)=>{
+    try {
+        const data = await fs.readFile(FILE_PATH, 'utf8'); // Wait for the file to be read
+        req.fileData = JSON.parse(data); // Attach parsed data to the request object
+        todos = req.fileData;
+        next(); // Proceed to the next middleware or route handler
+    } catch (error) {
+        console.error('Error reading or parsing file:', error);
+        next(error); // Pass the error to the error-handling middleware
+    }
+}
+
+function writeData(){
+    fs.writeFile(FILE_PATH,JSON.stringify(todos),"utf-8",(err)=>{
+        if(err){
+            console.error(err);
+            return;
+        }
+    })
+}
+
 // This route will return list of todos
-app.get('/tasks',(req,res)=>{
+app.get('/tasks',readFileMiddleware,(req,res)=>{
     res.json(todos);
 });
 
 // This route lets user to add task in tasks list and clear all the tasks
-app.post('/tasks',(req,res)=>{
+app.post('/tasks',readFileMiddleware,(req,res)=>{
     const body = req.body;
     const request = body.request;
     const taskName = body.name;
@@ -105,11 +129,12 @@ app.post('/tasks',(req,res)=>{
             reOrder(startIndex,endIndex);
         break;
     }
+    writeData();
     res.send(todos);
 });
 
 // This route returns a task with given index in url
-app.get('/task/:id',(req,res)=>{
+app.get('/task/:id',readFileMiddleware,(req,res)=>{
     let {id} = req.params;
     id = parseInt(id);
     let filterTask = todos.filter((element)=>{return element._id===id});
@@ -120,7 +145,7 @@ app.get('/task/:id',(req,res)=>{
     res.json(task);
 });
 
-app.post('/task/:id',(req,res)=>{
+app.post('/task/:id',readFileMiddleware,(req,res)=>{
     let {id} = req.params;
     const body = req.body;
     const request = body.request;
@@ -158,5 +183,6 @@ app.post('/task/:id',(req,res)=>{
     
     let task = todos.filter((element)=>{return element._id===id})[0];
     res.json(task);
+    writeData();
 });
 app.listen(3000);

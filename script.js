@@ -109,6 +109,19 @@ function editToDo(count){
     targetInput.focus();
 }
 
+async function asyncClearAll(){
+    await axios.post(API_URL+'/tasks',{
+        request:"clear"
+    })
+    const response = await axios.get(API_URL+'/tasks');
+    todos = response.data;
+    render();
+}
+
+function clearAll(){
+    asyncClearAll();
+}
+
 
 function handleDragStart(e){
     this.style.opacity = '0.4';

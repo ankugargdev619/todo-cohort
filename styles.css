@@ -32,6 +32,22 @@
     width: 5px;
 }
 
+.title-wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+
+.clear-all{
+    padding: 10px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+}
+
+.clear-all:hover{
+    cursor: pointer;
+}
+
 .title{
     line-height: 2em;
     color: var(--secondary-color);
