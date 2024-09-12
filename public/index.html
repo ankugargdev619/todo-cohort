@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="fixed-wrapper">
+            <div class="title-wrapper">
+                <div class="title">
+                    <h2>Task List</h2>
+                    <p>List today's goals</p>
+                </div>
+                <div class="button-group">
+                    <button class="btn-main" onclick="clearAll()">Clear Tasks</button>
+                    <button class="btn-main" onclick="logOut()">Log Out</button>
+                </div>
+                
+            </div>
+            <div class="add-todo">
+                <input id="new-todo-input" type="text" placeholder="What is your next task?">
+                <button id="addButton" onclick="addToDo()">
+                    
+                </button>
+            </div>
+        </div>
+        
+            
+        <div class="todos">
+        </div>
+    </div>
+    
+    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="scripts/script.js"></script>
+</body>
+</html>

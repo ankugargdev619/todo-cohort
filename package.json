@@ -1,5 +1,5 @@
 {
-  "name": "todo-memory",
+  "name": "todo-auth",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,11 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "axios": "^1.7.6",
     "cors": "^2.8.5",
-    "express": "^4.19.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.4"
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
   }
 }
