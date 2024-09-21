@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <body>
+        <div class="main-container-signin">
+            <div class="fixed-wrapper">
+                <div class="title-wrapper">
+                    <div class="title">
+                        <h2>Welcome</h2>
+                        <p>Please Authenticate</p>
+                    </div>
+                </div>
+                <input type="email" id ="email" placeholder="Enter your email">
+                <input type="password" id ="password" data-page="login" placeholder="Enter your password">
+                <div class="wrapper-center">
+                    <div class="error-message"></div>
+                    <div class="button-wrapper">
+                        <button class="btn-main" onclick="signin()" target="_self">Sign In</button>
+                        <button class="btn-main" onclick="openRegister()" target="_self">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="scripts/auth.js"></script>
+</body>
+</html>
